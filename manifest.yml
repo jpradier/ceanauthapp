@@ -1,0 +1,14 @@
+declared-services:
+  cloudant-for-ceanauthapp:
+    label: cloudantNoSQLDB
+    plan: Lite
+applications:
+- instances: 1
+  timeout: 180
+  name: ceanauth
+  buildpack: sdk-for-nodejs
+  command: npm start
+  memory: 256MB
+  domain: mybluemix.net
+  services:
+  - cloudant-for-ceanauthapp
