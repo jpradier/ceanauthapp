@@ -1,0 +1,24 @@
+{
+  "name": "meanauthapp",
+  "version": "1.0.0",
+  "description": "MEAN stack authentication app",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app"
+  },
+  "dependencies": {
+    "@cloudant/cloudant": "^4.0.0",
+    "bcryptjs": "*",
+    "body-parser": "*",
+    "cfenv": "^1.2.0",
+    "cloudant": "^1.10.0-NOTICE",
+    "cors": "*",
+    "express": "*",
+    "jsonwebtoken": "*",
+    "passport": "*",
+    "passport-jwt": "*"
+  },
+  "author": "Julien Pradier",
+  "license": "ISC"
+}
