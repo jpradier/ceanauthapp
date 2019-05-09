@@ -82,4 +82,10 @@ router.get('/profile', passport.authenticate('jwt', { session: false }), (req, r
     res.json({ user: req.user });
 });
 
+// CONSENT
+router.put('/consent', passport.authenticate('jwt', { session: false }), (req, res, next) => {
+    console.log(req);
+    res.json({ user: req.user, consent: {procpurpid : req.body.procpurpid, agreeind: req.body.agreeind} });
+});
+
 module.exports = router;
