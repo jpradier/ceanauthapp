@@ -3,7 +3,7 @@
     "cloudantNoSQLDB": [
       {
         "credentials": {
-          "url":"https://3c7da7ca-ec86-451b-848d-0235ff39077f-bluemix:77114cce16fbeb4e0d9cccff12dbb7686741bb3b62bec855d169b07ea9bc7f28@3c7da7ca-ec86-451b-848d-0235ff39077f-bluemix.cloudantnosqldb.appdomain.cloud"
+          "url":"https://1a07d239-253d-4eaf-b3a7-658c7a15208c-bluemix:52c051b8bc2d16f222025c11088906a33c158fc18d5212ac38eacc27f59a0249@1a07d239-253d-4eaf-b3a7-658c7a15208c-bluemix.cloudantnosqldb.appdomain.cloud"
         },
         "label": "cloudantNoSQLDB"
       }
