@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ValidateService } from '../../services/validate.service';
 import { AuthService } from '../../services/auth.service';
 import { FlashMessagesService} from 'angular2-flash-messages';
-import { Router } from '@angular/router'
+import { Router } from '@angular/router';
+import { Consent } from 'src/app/models/consent.model';
+
 
 @Component({
   selector: 'app-register',
@@ -15,15 +17,43 @@ export class RegisterComponent implements OnInit {
   username: String;
   email: String;
   password: String;
+  toggle: boolean = false;
+
+  consents: Consent[] = new Array();
+
+
 
   constructor(
     private validateService: ValidateService,
-    private authService: AuthService, 
+    private authService: AuthService,
     private router: Router,
     private flashMessage: FlashMessagesService) { }
 
   ngOnInit() {
+    this.getConsents();
   }
+toggleForm(){
+  this.toggle = true;
+}
+getConsents() {
+  const consent1: Consent = new Consent();
+  consent1.id = '436353041082491625';
+  consent1.name = 'Consent for Campaign Raffle';
+  consent1.description = 'I give my consent to receive promotionnal information about Products and Services of ACME Corporation';
+  this.consents.push(consent1);
+
+  const consent2: Consent = new Consent();
+  consent2.id = '682253041084546378';
+  consent2.name = 'Consent for Promotions';
+  consent2.description = 'I give my consent so that my data may be transferred to receive commercial information from collaborating third parties';
+  this.consents.push(consent2);
+
+  const consent: Consent = new Consent();
+  consent.id = '697653041086558854';
+  consent.name = 'Consent for Data Sharing to Third Parties';
+  consent.description = 'I want to participate in the spring 2018 compaign raffle';
+  this.consents.push(consent);
+ }
 
   onRegisterSubmit() {
     const user = {

@@ -16,6 +16,8 @@ import { ValidateService} from './services/validate.service';
 import { AuthService} from './services/auth.service';
 import { FlashMessagesModule} from 'angular2-flash-messages';
 import { AuthGuard } from './guards/auth.guard';
+import { ConsentComponent } from './components/consent/consent.component';
+import { ConsentGeneralComponent } from './components/consent-general/consent-general.component';
 //import { JwtHelperService } from '@auth0/angular-jwt';
 
 const appRoutes: Routes = [
@@ -34,7 +36,9 @@ const appRoutes: Routes = [
     RegisterComponent,
     HomeComponent,
     DashboardComponent,
-    ProfileComponent
+    ProfileComponent,
+    ConsentComponent,
+    ConsentGeneralComponent
   ],
   imports: [
     HttpModule,

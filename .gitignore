@@ -62,3 +62,6 @@ typings/
 
 # build output
 public/
+
+# cloudant credentials
+vcap-local.json
