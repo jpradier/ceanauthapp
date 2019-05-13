@@ -6,3 +6,18 @@ This was ported to Cloudant instead of MongoDb
 to facilitate the deployment to IBM Cloud
 
 [![Deploy to IBM Cloud](https://cloud.ibm.com/devops/setup/deploy/button.png)](https://cloud.ibm.com/devops/setup/deploy?repository=https://github.com/jpradier/ceanauthapp.git)
+
+
+Note if you want to run it locally against your IBM Cloud Cloudant intance, provide a vacp-local.json file such as:
+{
+  "services": {
+    "cloudantNoSQLDB": [
+      {
+        "credentials": {
+          "url": "TODO - Replace with your cloudant URL"
+        },
+        "label": "cloudantNoSQLDB"
+      }
+    ]
+  }
+}
