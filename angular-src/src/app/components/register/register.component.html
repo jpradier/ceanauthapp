@@ -16,7 +16,13 @@
     <label>Password</label>
     <input type="password" [(ngModel)]="password" name="password" class="form-control" required>
   </div>
-  <app-consent-general></app-consent-general><br>
+  <div id="generalconsentdiv">
+  <div class="form-group form-check-inline m-2">
+    <input type="checkbox" name="agreeInd" class="form-check-input">
+    <label class="form-check-label">I accept the general terms and conditions of the service</label>
+  </div>
+</div>
+
   <div>
     <h5> In accordance with the General Data Protection Regulations, we need you to grant the following consents </h5>
   </div>

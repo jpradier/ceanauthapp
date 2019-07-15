@@ -1,0 +1,32 @@
+PUT http://mdmdemowin:9080/com.ibm.mdm.server.ws.restful/resources/MDMWSRESTful
+Content-Type: application/json
+Accept: application/json
+Authorization: Basic bWRtYWRtaW46bWRtYWRtaW4=
+
+{ "TCRMService": {
+    "@schemaLocation": "http://www.ibm.com/mdm/schema MDMDomains.xsd",
+    "RequestControl": {
+      "requestID": "10015",
+      "DWLControl": {
+        "requesterName": "cusadmin",
+        "requesterLanguage": "100"
+      }
+    },
+    "TCRMTx": {
+      "TCRMTxType": "addConsent",
+      "TCRMTxObject": "ConsentBObj",
+      "TCRMObject": {
+        "ConsentBObj": {
+          "ConsentOwnerId": "pradier.j@fr.ibm.com",
+          "ProcPurpId": "728153040827580997",
+          "AgreeInd": "1",
+          "LanguageAgreedInType": "100",
+          "EnforcementType": "2",
+          "CreateDate": "2017-07-15",
+          "StartDate": "2017-07-15",
+          "ProfileSystemType": "2"
+        }
+      }
+    }
+  }
+}
