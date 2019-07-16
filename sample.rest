@@ -1,0 +1,117 @@
+### Get All Processing Activity Types
+PUT http://mdmdemowin:9080/com.ibm.mdm.server.ws.restful/resources/MDMWSRESTful
+Content-Type: application/json
+Accept: application/json
+Authorization: Basic bWRtYWRtaW46bWRtYWRtaW4=
+parser: DWLAdminXMLRequestParser
+
+ {"DWLAdminService":{"@schemaLocation":"http://www.ibm.com/mdm/schema MDMDomains.xsd","RequestControl":{"requestID":1002,"DWLControl":{"requesterName":"cusadmin","requesterLanguage":"100","requesterTimeZone":"UTC"}},"DWLInquiry":{"InquiryType":"getAllAdminCodeTypesByLangId","InquiryParam":{"methodParam":[{"@name":"CodeTableName","$":"CDPROCACTTP"},{"@name":"lang_tp_cd","$":"100"},{"@name":"Filter","$":"ALL"}]}}}}
+
+### Add New Processing Activty Type
+PUT http://mdmdemowin:9080/com.ibm.mdm.server.ws.restful/resources/MDMWSRESTful
+Content-Type: application/json
+Accept: application/json
+Authorization: Basic bWRtYWRtaW46bWRtYWRtaW4=
+parser: DWLAdminXMLRequestParser
+
+{"DWLAdminService":{"@schemaLocation":"http://www.ibm.com/mdm/schema MDMDomains.xsd","RequestControl":{"requestID":1003,"DWLControl":{"requesterName":"cusadmin","requesterLanguage":"100","requesterTimeZone":"UTC"}},"DWLTx":{"DWLTxType":"addAdminCodeType","DWLTxObject":"ProcessingActivityCatalogTypeBObj","DWLObject":{"ProcessingActivityCatalogTypeBObj":{"lang_tp_cd":"100","procact":"1000528","name":"Traitement Supplementaire sur les donnees","description":"Traitement Supplementaire sur les donnees"}}}}}
+
+### Get All Processing Purpose Types
+PUT http://mdmdemowin:9080/com.ibm.mdm.server.ws.restful/resources/MDMWSRESTful
+Content-Type: application/json
+Accept: application/json
+Authorization: Basic bWRtYWRtaW46bWRtYWRtaW4=
+parser: DWLAdminXMLRequestParser
+
+ {"DWLAdminService":{"@schemaLocation":"http://www.ibm.com/mdm/schema MDMDomains.xsd","RequestControl":{"requestID":1002,"DWLControl":{"requesterName":"cusadmin","requesterLanguage":"100","requesterTimeZone":"UTC"}},"DWLInquiry":{"InquiryType":"getAllAdminCodeTypesByLangId","InquiryParam":{"methodParam":[{"@name":"CodeTableName","$":"CDPROCPURPTP"},{"@name":"lang_tp_cd","$":"100"},{"@name":"Filter","$":"ALL"}]}}}}
+
+### Add Processing Purpose Type
+PUT http://mdmdemowin:9080/com.ibm.mdm.server.ws.restful/resources/MDMWSRESTful
+Content-Type: application/json
+Accept: application/json
+Authorization: Basic bWRtYWRtaW46bWRtYWRtaW4=
+parser: DWLAdminXMLRequestParser
+
+{"DWLAdminService":{"@schemaLocation":"http://www.ibm.com/mdm/schema MDMDomains.xsd","RequestControl":{"requestID":1003,"DWLControl":{"requesterName":"cusadmin","requesterLanguage":"100","requesterTimeZone":"UTC"}},"DWLTx":{"DWLTxType":"addAdminCodeType","DWLTxObject":"ProcessingPurposeCatalogTypeBObj","DWLObject":{"ProcessingPurposeCatalogTypeBObj":{"lang_tp_cd":"100","procpurp":"1000518","name":" Etude des comportements des consommateurs","description":" Etude des comportements des consommateurs"}}}}}
+
+### Get All Processing Purpose
+PUT http://mdmdemowin:9080/com.ibm.mdm.server.ws.restful/resources/MDMWSRESTful
+Content-Type: application/json
+Accept: application/json
+Authorization: Basic bWRtYWRtaW46bWRtYWRtaW4=
+
+{"TCRMService":{"@schemaLocation":"http://www.ibm.com/mdm/schema MDMDomains.xsd","RequestControl":{"requestID":1000,"DWLControl":{"requesterName":"cusadmin","requesterLocale":"100","requesterTimeZone":"UTC"}},"TCRMInquiry":{"InquiryType":"getAllProcessingPurpose","InquiryParam":{"tcrmParam":[]}}}}
+
+### Add Processing Purpose
+PUT http://mdmdemowin:9080/com.ibm.mdm.server.ws.restful/resources/MDMWSRESTful
+Content-Type: application/json
+Accept: application/json
+Authorization: Basic bWRtYWRtaW46bWRtYWRtaW4=
+
+{"TCRMService":{"@schemaLocation":"http://www.ibm.com/mdm/schema MDMDomains.xsd","RequestControl":{"requestID":1001,"DWLControl":{"requesterName":"cusadmin","requesterLanguage":"100","requesterTimeZone":"UTC"}},"TCRMTx":{"TCRMTxType":"addProcessingPurpose","TCRMTxObject":"ProcessingPurposeBObj","TCRMObject":{"ProcessingPurposeBObj":{"ProcPurpId":-1,"ProcPurpType":"1000517","StartDate":"2019-07-01 04:00:00.000"}}}}}
+
+
+### Add Processing Activity to a processing purpose
+PUT http://mdmdemowin:9080/com.ibm.mdm.server.ws.restful/resources/MDMWSRESTful
+Content-Type: application/json
+Accept: application/json
+Authorization: Basic bWRtYWRtaW46bWRtYWRtaW4=
+
+{"TCRMService":{"@schemaLocation":"http://www.ibm.com/mdm/schema MDMDomains.xsd","RequestControl":{"requestID":1001,"DWLControl":{"requesterName":"cusadmin","requesterLanguage":"100","requesterTimeZone":"UTC"}},"TCRMTx":{"TCRMTxType":"addProcessingActivity","TCRMTxObject":"ProcessingActivityBObj","TCRMObject":{"ProcessingActivityBObj":{"ProcPurpId":"238456327229470892","ProcActType":"1000527","StartDate":"2019-07-01 04:00:00.000"}}}}}
+
+### Get All Processing Activity Associated with a processing pupose
+PUT http://mdmdemowin:9080/com.ibm.mdm.server.ws.restful/resources/MDMWSRESTful
+Content-Type: application/json
+Accept: application/json
+Authorization: Basic bWRtYWRtaW46bWRtYWRtaW4=
+
+{"TCRMService":{"@schemaLocation":"http://www.ibm.com/mdm/schema MDMDomains.xsd","RequestControl":{"requestID":1000,"DWLControl":{"requesterName":"cusadmin","requesterLocale":"100","requesterTimeZone":"UTC"}},"TCRMInquiry":{"InquiryType":"getAllProcessingActivityByProcessingPurpose","InquiryParam":{"tcrmParam":[{"@name":"ProcPurpId","$":"238456327229470892"},{"@name":"InquiryLevel","$":"0"}]}}}}
+
+### Search Consent
+PUT http://mdmdemowin:9080/com.ibm.mdm.server.ws.restful/resources/MDMWSRESTful
+Content-Type: application/json
+Accept: application/json
+Authorization: Basic bWRtYWRtaW46bWRtYWRtaW4=
+
+{"TCRMService":{"@schemaLocation":"http://www.ibm.com/mdm/schema MDMDomains.xsd","RequestControl":{"requestID":604157,"DWLControl":{"requesterName":"mdmadmin","requesterLocale":"en_US","requesterTimeZone":"UTC"}},"TCRMTx":{"TCRMTxType":"searchConsent","TCRMTxObject":"ConsentSearchBObj","TCRMObject":{"ConsentSearchBObj":{"ConsentOwnerId":"pradier.j@fr.ibm.com","EnforcementType":"2","ProfileSystemType":"2","InquiryLevel":"3"}}}}}
+
+### Add Consent
+PUT http://mdmdemowin:9080/com.ibm.mdm.server.ws.restful/resources/MDMWSRESTful
+Content-Type: application/json
+Accept: application/json
+Authorization: Basic bWRtYWRtaW46bWRtYWRtaW4=
+
+{"TCRMService":{"@schemaLocation":"http:\/\/www.ibm.com\/mdm\/schema MDMDomains.xsd","RequestControl":{"requestID":"10015","DWLControl":{"requesterName":"cusadmin","requesterLanguage":"100"}},"TCRMTx":{"TCRMTxType":"addConsent","TCRMTxObject":"ConsentBObj","TCRMObject":{"ConsentBObj":{"ConsentOwnerId":"pradier.j@fr.ibm.com","ProcPurpId":"728153040827580997","AgreeInd":"1","LanguageAgreedInType":"100","EnforcementType":"2","CreateDate":"2017-07-15","StartDate":"2017-07-07","ProfileSystemType":"2"}}}}}
+
+### GetAllConsentByParty
+PUT http://mdmdemowin:9080/com.ibm.mdm.server.ws.restful/resources/MDMWSRESTful
+Content-Type: application/json
+Accept: application/json
+Authorization: Basic bWRtYWRtaW46bWRtYWRtaW4=
+
+{"TCRMService":{"@schemaLocation":"http://www.ibm.com/mdm/schema MDMDomains.xsd","RequestControl":{"requestID":1000,"DWLControl":{"requesterName":"cusadmin","requesterLocale":"100","requesterTimeZone":"UTC"}},"TCRMInquiry":{"InquiryType":"getAllConsentByParty","InquiryParam":{"tcrmParam":[{"@name":"ConsentOwnerId","$":"882853040695875849"},{"@name":"InquiryLevel","$":"0"},{"@name":"Filter","$":""}]}}}}
+
+
+### GetAllConsentProvisionByConsent
+PUT http://mdmdemowin:9080/com.ibm.mdm.server.ws.restful/resources/MDMWSRESTful
+Content-Type: application/json
+Accept: application/json
+Authorization: Basic bWRtYWRtaW46bWRtYWRtaW4=
+
+{"TCRMService":{"@schemaLocation":"http://www.ibm.com/mdm/schema MDMDomains.xsd","RequestControl":{"requestID":1000,"DWLControl":{"requesterName":"cusadmin","requesterLocale":"100","requesterTimeZone":"UTC"}},"TCRMInquiry":{"InquiryType":"getAllConsentProvisionByConsent","InquiryParam":{"tcrmParam":[{"@name":"ConsentId","$":"969853040697121174"},{"@name":"InquiryLevel","$":"0"}]}}}}
+
+### AddConsent
+PUT http://mdmdemowin:9080/com.ibm.mdm.server.ws.restful/resources/MDMWSRESTful
+Content-Type: application/json
+Accept: application/json
+Authorization: Basic bWRtYWRtaW46bWRtYWRtaW4=
+
+{"TCRMService":{"@schemaLocation":"http://www.ibm.com/mdm/schema MDMDomains.xsd","RequestControl":{"requestID":1001,"DWLControl":{"requesterName":"cusadmin","requesterLanguage":"100","requesterTimeZone":"UTC"}},"TCRMTx":{"TCRMTxType":"addConsent","TCRMTxObject":"ConsentBObj","TCRMObject":{"ConsentBObj":{"ConsentId":"-2","ConsentOwnerId":"882853040695875849","ProcPurpId":"238456327229470892","AgreeInd":"1","LanguageAgreedInType":"100","EnforcementType":"0","CreateDate":"2019-07-16 10:34:52.792","ProfileSystemType":"1"}}}}}
+
+### AddConsentProvision
+PUT http://mdmdemowin:9080/com.ibm.mdm.server.ws.restful/resources/MDMWSRESTful
+Content-Type: application/json
+Accept: application/json
+Authorization: Basic bWRtYWRtaW46bWRtYWRtaW4=
+
+{"TCRMService":{"@schemaLocation":"http://www.ibm.com/mdm/schema MDMDomains.xsd","RequestControl":{"requestID":1001,"DWLControl":{"requesterName":"cusadmin","requesterLanguage":"100","requesterTimeZone":"UTC"}},"TCRMTx":{"TCRMTxType":"addConsentProvision","TCRMTxObject":"ConsentProvisionBObj","TCRMObject":{"ConsentProvisionBObj":{"ConsentId":"883856327332466929","Content":"{\"days\":[\"Monday\",\"Tuesday\"],\"from\":\"18:30\",\"to\":\"20:00\"}","ConsProvType":"1","CreateDate":"2019-07-16 10:34:54.864"}}}}}
