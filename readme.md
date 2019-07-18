@@ -1,4 +1,4 @@
-CEAN Auth App
+Consent App - Based On CEAN Auth App
 
 This sample Register/Login front end was built using the Traversy Media tutotial ( https://www.youtube.com/watch?v=uONz0lEWft0&list=PLillGF-RfqbZMNtaOXJQiDebNXjVapWPZ )
 
