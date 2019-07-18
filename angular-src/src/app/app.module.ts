@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes} from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { Http ,HttpModule} from '@angular/http';
+import { HttpClientModule } from '@angular/common/http'
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -44,6 +45,7 @@ const appRoutes: Routes = [
     HttpModule,
     FormsModule,
     BrowserModule,
+    HttpClientModule,
     RouterModule.forRoot(appRoutes),
     FlashMessagesModule.forRoot()
   ],
