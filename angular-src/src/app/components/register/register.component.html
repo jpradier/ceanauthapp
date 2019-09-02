@@ -1,35 +1,41 @@
-<h2 class="page-header">Register</h2>
-<form (submit)="onRegisterSubmit()">
-  <div class="form-group">
-    <label>Name</label>
-    <input type="text" [(ngModel)]="name" name="name" class="form-control" required>
-  </div>
-  <div class="form-group">
-    <label>Username</label>
-    <input type="text" [(ngModel)]="username" name="username" class="form-control" required>
-  </div>
-  <div class="form-group">
-    <label>Email</label>
-    <input type="text" [(ngModel)]="email" name="email" class="form-control" required>
-  </div>
-  <div class="form-group">
-    <label>Password</label>
-    <input type="password" [(ngModel)]="password" name="password" class="form-control" required>
-  </div>
-  <div id="generalconsentdiv">
-  <div class="form-group form-check-inline m-2">
-    <input type="checkbox" name="agreeInd" class="form-check-input">
-    <label class="form-check-label">I accept the general terms and conditions of the service</label>
-  </div>
-</div>
 
-  <div>
-    <h5> In accordance with the General Data Protection Regulations, we need you to grant the following consents </h5>
-  </div>
-  <div>
-    <div class="form-check-inline col-mg-4" >
-      <app-consent *ngFor="let const of consents" [consent]= "const"></app-consent>
-    </div>
-  </div>
-  <input type="submit" class="btn btn-primary" value="Submit">
-</form>
+<div class="main">
+
+    <section class="signup">
+              <div class="container">
+                <div class="signup-content">
+                  <form (submit)="onRegisterSubmit()" class="signup-form">
+                      <h2 class="form-title">Register</h2>
+                      <div class="form-group">
+                        <label>Name</label>
+                        <input type="text" [(ngModel)]="name" name="name" class="form-input" placeholder="Your name" required>
+                      </div>
+                      <div class="form-group">
+                        <label>Username</label>
+                        <input type="text" [(ngModel)]="username" name="username" class="form-input" placeholder="Your username" required>
+                      </div>
+                      <div class="form-group">
+                        <label>Email</label>
+                        <input type="text" [(ngModel)]="email" name="email" class="form-input" placeholder="Your email" required>
+                      </div>
+                      <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" [(ngModel)]="password" name="password" class="form-input" placeholder="Your password" required>
+                      </div>
+                      <div>
+                        <div class="form-group form-inline">
+                          <!--[(ngModel)] ="agree.selected"-->
+                          <input #agree type="checkbox" name="agreeInd" class="form-check-input"  >
+                          <label for="agreeind"> I accept the general terms and conditions of the service</label>
+                        </div>
+                      </div>
+                      <br>
+                      <div class="form-group">
+                        <input type="submit" class="form-submit" value="Submit">
+                      </div>
+                  </form>
+                </div>
+              </div>
+    </section>
+
+</div>

@@ -1,9 +1,10 @@
+import { User } from './models/user.model';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes} from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { Http ,HttpModule} from '@angular/http';
-import { HttpClientModule } from '@angular/common/http'
+import { Http , HttpModule} from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -17,16 +18,15 @@ import { ValidateService} from './services/validate.service';
 import { AuthService} from './services/auth.service';
 import { FlashMessagesModule} from 'angular2-flash-messages';
 import { AuthGuard } from './guards/auth.guard';
-import { ConsentComponent } from './components/consent/consent.component';
 import { ConsentGeneralComponent } from './components/consent-general/consent-general.component';
-//import { JwtHelperService } from '@auth0/angular-jwt';
+import {ConsentService} from './services/consent.service';
 
 const appRoutes: Routes = [
-  { path:'', component: HomeComponent},
-  { path:'register', component: RegisterComponent},
-  { path:'login', component: LoginComponent},
-  { path:'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
-  { path:'profile', component: ProfileComponent, canActivate: [AuthGuard]}
+  { path: '', component: HomeComponent},
+  { path: 'register', component: RegisterComponent},
+  { path: 'login', component: LoginComponent},
+  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
+  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({
@@ -38,7 +38,6 @@ const appRoutes: Routes = [
     HomeComponent,
     DashboardComponent,
     ProfileComponent,
-    ConsentComponent,
     ConsentGeneralComponent
   ],
   imports: [
@@ -52,7 +51,9 @@ const appRoutes: Routes = [
   providers: [
     ValidateService,
     AuthService,
-    AuthGuard
+    AuthGuard,
+    ConsentService,
+    User
   ],
   bootstrap: [AppComponent]
 })

@@ -1,10 +1,10 @@
-import { HttpClientModule, HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit, Injectable } from '@angular/core';
 import { ValidateService } from '../../services/validate.service';
 import { AuthService } from '../../services/auth.service';
 import { FlashMessagesService} from 'angular2-flash-messages';
 import { Router } from '@angular/router';
-import { Consent } from 'src/app/models/consent.model';
+import {User} from '../../models/user.model';
 
 
 
@@ -18,13 +18,14 @@ import { Consent } from 'src/app/models/consent.model';
 @Injectable()
 export class RegisterComponent implements OnInit {
 
-  name: String;
-  username: String;
-  email: String;
-  password: String;
+  //user: User;
+  name: string;
+  email: string;
+  username: string;
+  password: string;
   toggle: boolean = false;
+  agree: boolean = false;
 
-  consents: Consent[] = new Array();
 
 
 
@@ -33,34 +34,18 @@ export class RegisterComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private flashMessage: FlashMessagesService,
-    private httpClient: HttpClient) {}
+    private httpClient: HttpClient
+    ) {}
 
 
   ngOnInit() {
-    this.getConsents();
+    console.log('helloooooo');
   }
+
   toggleForm() {
     this.toggle = true;
   }
-  getConsents() {
-    const consent1: Consent = new Consent();
-    consent1.id = '436353041082491625';
-    consent1.name = 'Consent for Campaign Raffle';
-    consent1.description = 'I give my consent to receive promotionnal information about Products and Services of ACME Corporation';
-    this.consents.push(consent1);
 
-    const consent2: Consent = new Consent();
-    consent2.id = '682253041084546378';
-    consent2.name = 'Consent for Promotions';
-    consent2.description = 'I give my consent so that my data may be transferred to receive commercial information from collaborating third parties';
-    this.consents.push(consent2);
-
-    const consent: Consent = new Consent();
-    consent.id = '697653041086558854';
-    consent.name = 'Consent for Data Sharing to Third Parties';
-    consent.description = 'I want to participate in the spring 2018 compaign raffle';
-    this.consents.push(consent);
-  }
 
   onRegisterSubmit() {
     const user = {
@@ -69,6 +54,8 @@ export class RegisterComponent implements OnInit {
       username: this.username,
       password: this.password
     }
+   //this.user = new User();
+
 
     // Required Field
     if (!this.validateService.validateRegister(user)) {
@@ -90,6 +77,7 @@ export class RegisterComponent implements OnInit {
     // Register User
     this.authService.registerUser(user).subscribe(data => {
       if (data.success) {
+        console.log('helooooo');
         this.onSaveGeneralConsent();
         this.flashMessage.show('You are now registered and can log in', {
           cssClass: 'alert-success',
@@ -107,9 +95,13 @@ export class RegisterComponent implements OnInit {
     });
   }
 
+
+   // this.agree ? '1' : '0',
+
+  // Add General Consent
   onSaveGeneralConsent() {
     const obj = { 'TCRMService': {
-        '@schemaLocation': 'http://www.ibm.com/mdm/schema MDMDomains.xsd',
+        '@schemaLocation': 'http:\/\/www.ibm.com\/mdm\/schema MDMDomains.xsd',
         'RequestControl': {
           'requestID': '10015',
           'DWLControl': {
@@ -135,6 +127,7 @@ export class RegisterComponent implements OnInit {
         }
       }
     };
+
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -142,8 +135,9 @@ export class RegisterComponent implements OnInit {
         'Authorization': 'Basic bWRtYWRtaW46bWRtYWRtaW4='
       })
     };
+
     this.httpClient
-    .put('http://mdmdemowin:9080/com.ibm.mdm.server.ws.restful/resources/MDMWSRESTful', obj, httpOptions)
+    .put('/api/com.ibm.mdm.server.ws.restful/resources/MDMWSRESTful', obj, httpOptions)
     .subscribe(data => {
         console.log( 'les donnes de retour de la requete : ' + data);
     }, error => {
