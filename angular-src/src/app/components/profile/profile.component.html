@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row">
-    <div class="col-md-2">
+    <div class="col-md-4">
           <div *ngIf="user">
             <h2 class="page-header">{{user.name}}</h2>
             <ul class="list-group">
@@ -20,7 +20,7 @@
         <table class="table table-bordered">
             <thead>
               <tr>
-                <th scope="col" >Consents </th>
+                <th scope="col"> Consent  </th>
                 <th scope="col">Activated/Desactivated</th>
                 <!--<th scope="col" >Desactivated</th>-->
               </tr>
@@ -28,29 +28,42 @@
             <tbody>
               <tr>
                 <!-- *ngFor="let item of collection"  -->
-                <td class="col-lg-8">
-                  <div>
+                <td class="col-lg-6">
+                  <div *ngFor="let consent of consents "> {{consent.ProcPurpId}}
                       <label> Mes consentements </label>
                   </div>
                </td>
-                <td class="col-lg-4" >
-                        <!--<label for="agreeind"> <input #agree type="checkbox" name="agreeInd"  [(ngModel)] ="agree.selected" > Activated</label>-->
-                      <div class="form-check" >
-                        <!-- [(ngModel)] ="agree.selected" -->
-                          <input #agree type="checkbox" name="agreeInd" class="form-check-input" >
-                          <label class="form-check-label" for="agreeind"> Activated/Desactivated </label>
+                <td class="col-lg-6" >
+                    <div class="custom-control custom-switch">
+                        <input [(ngModel)] ="agree" type="checkbox" class="custom-control-input" id="customSwitches"
+                               [ngModelOptions]="{standalone: true}"
+                               >
+                        <label class="custom-control-label" for="customSwitches"> Activer ou Désactiver le consentement </label>
                       </div>
+
                 </td>
-                <!--<td  class="col-lg-2">
-                      <label for="agreeind1"> <input #agree1 type="checkbox" name="agreeInd1"  [(ngModel)] ="agree1.selected" > Desactivated</label>
-                      <div class="form-check">
-                          <input #agree type="checkbox" name="agreeInd" class="form-check-input" [(ngModel)] ="agree.selected1">
-                          <label class="form-check-label" for="agreeind"> Desactivated </label>
-                      </div>
-                </td> -->
+
               </tr>
             </tbody>
           </table>
     </div>
   </div>
 </div>
+
+
+
+
+<!--<label for="agreeind"> <input #agree type="checkbox" name="agreeInd"  [(ngModel)] ="agree.selected" > Activated</label>
+                      <div class="form-check" >
+                        [(ngModel)] ="agree.selected"
+                          <input #agree type="checkbox" name="agreeInd" class="form-check-input" >
+                          <label class="form-check-label" for="agreeind"> Activated/Desactivated </label>
+                      </div>-->
+
+                       <!--<td  class="col-lg-2">
+                      <label for="agreeind1"> <input #agree1 type="checkbox" name="agreeInd1"  [(ngModel)] ="agree1.selected" > Desactivated</label>
+                      <div class="form-check">
+                          <input #agree type="checkbox" name="agreeInd" class="form-check-input" [(ngModel)] ="agree.selected1">
+                          <label class="form-check-label" for="agreeind"> Desactivated </label>
+                      </div>
+                </td> -->

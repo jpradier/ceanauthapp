@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
-import { FlashMessagesService } from "angular2-flash-messages";
+import { FlashMessagesService } from 'angular2-flash-messages';
 import { subscribeOn } from 'rxjs/operators';
+import {User} from '../../models/user.model';
+
 
 @Component({
   selector: 'app-login',
@@ -26,7 +28,8 @@ export class LoginComponent implements OnInit {
     const user = {
       username: this.username,
       password: this.password
-    }
+    };
+
 
     this.authService.authenticateUser(user).subscribe(data => {
       if (data.success) {

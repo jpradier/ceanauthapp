@@ -1,3 +1,4 @@
+import { ConsentService } from './../../services/consent.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit, Injectable } from '@angular/core';
 import { ValidateService } from '../../services/validate.service';
@@ -18,13 +19,13 @@ import {User} from '../../models/user.model';
 @Injectable()
 export class RegisterComponent implements OnInit {
 
-  //user: User;
-  name: string;
-  email: string;
-  username: string;
-  password: string;
-  toggle: boolean = false;
-  agree: boolean = false;
+  user: User = new User();
+  // name: string;
+  // email: string;
+  // username: string;
+  // password: string;
+  toggle: Boolean = false;
+  agree: Boolean = false;
 
 
 
@@ -34,31 +35,22 @@ export class RegisterComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private flashMessage: FlashMessagesService,
-    private httpClient: HttpClient
+    private consentService: ConsentService
     ) {}
 
 
   ngOnInit() {
-    console.log('helloooooo');
-  }
 
+  }
   toggleForm() {
     this.toggle = true;
   }
 
 
   onRegisterSubmit() {
-    const user = {
-      name: this.name,
-      email: this.email,
-      username: this.username,
-      password: this.password
-    }
-   //this.user = new User();
-
 
     // Required Field
-    if (!this.validateService.validateRegister(user)) {
+    if (!this.validateService.validateRegister(this.user)) {
       this.flashMessage.show('Please fill in all fields', {
         cssClass: 'alert-danger',
         timeout: 3000
@@ -66,7 +58,7 @@ export class RegisterComponent implements OnInit {
       return false;
     }
     // Validate Email
-    if (!this.validateService.validateEmail(user.email)) {
+    if (!this.validateService.validateEmail(this.user.email)) {
       this.flashMessage.show('Please provide a valid email', {
         cssClass: 'alert-danger',
         timeout: 3000
@@ -75,10 +67,11 @@ export class RegisterComponent implements OnInit {
     }
 
     // Register User
-    this.authService.registerUser(user).subscribe(data => {
+    this.authService.registerUser(this.user).subscribe(data => {
       if (data.success) {
-        console.log('helooooo');
-        this.onSaveGeneralConsent();
+        if (this.agree === true) {
+              this.consentService.SaveGeneralConsent(this.user.email, this.agree);
+            }
         this.flashMessage.show('You are now registered and can log in', {
           cssClass: 'alert-success',
           timeout: 3000
@@ -92,56 +85,6 @@ export class RegisterComponent implements OnInit {
         this.router.navigate(['/register']);
 
       }
-    });
-  }
-
-
-   // this.agree ? '1' : '0',
-
-  // Add General Consent
-  onSaveGeneralConsent() {
-    const obj = { 'TCRMService': {
-        '@schemaLocation': 'http:\/\/www.ibm.com\/mdm\/schema MDMDomains.xsd',
-        'RequestControl': {
-          'requestID': '10015',
-          'DWLControl': {
-            'requesterName': 'cusadmin',
-            'requesterLanguage': '100'
-          }
-        },
-        'TCRMTx': {
-          'TCRMTxType': 'addConsent',
-          'TCRMTxObject': 'ConsentBObj',
-          'TCRMObject': {
-            'ConsentBObj': {
-              'ConsentOwnerId': this.email,
-              'ProcPurpId': '728153040827580997',
-              'AgreeInd': '1',
-              'LanguageAgreedInType': '100',
-              'EnforcementType': '2',
-              'CreateDate': '2017-07-15',
-              'StartDate': '2017-07-15',
-              'ProfileSystemType': '2'
-            }
-          }
-        }
-      }
-    };
-
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'Authorization': 'Basic bWRtYWRtaW46bWRtYWRtaW4='
-      })
-    };
-
-    this.httpClient
-    .put('/api/com.ibm.mdm.server.ws.restful/resources/MDMWSRESTful', obj, httpOptions)
-    .subscribe(data => {
-        console.log( 'les donnes de retour de la requete : ' + data);
-    }, error => {
-      console.log('les erreurs : ' + error);
     });
   }
 }
