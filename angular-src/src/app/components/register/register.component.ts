@@ -70,7 +70,7 @@ export class RegisterComponent implements OnInit {
     this.authService.registerUser(this.user).subscribe(data => {
       if (data.success) {
         if (this.agree === true) {
-              this.consentService.SaveGeneralConsent(this.user.email, this.agree);
+              this.consentService.addGeneralConsent(this.user.email, this.agree);
             }
         this.flashMessage.show('You are now registered and can log in', {
           cssClass: 'alert-success',

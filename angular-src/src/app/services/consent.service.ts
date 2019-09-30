@@ -14,7 +14,7 @@ export class ConsentService {
   constructor( private httpClient: HttpClient) { }
 
   // Add General Consent
-  SaveGeneralConsent(email: String, agree: Boolean) {
+  addGeneralConsent(email: String, agree: Boolean) {
     const obj = { 'TCRMService': {
         '@schemaLocation': 'http://www.ibm.com/mdm/schema MDMDomains.xsd',
         'RequestControl': {
@@ -53,14 +53,77 @@ export class ConsentService {
     };
 
     this.httpClient
-    .put('/api/com.ibm.mdm.server.ws.restful/resources/MDMWSRESTful', obj, httpOptions)
-    .subscribe(data => {
-        console.log( 'les donnes de retour de la requete : ' + data);
-    }, error => {
-      console.log('les erreurs : ' + error);
-    });
+                  .put('/api/com.ibm.mdm.server.ws.restful/resources/MDMWSRESTful', obj, httpOptions)
+                  .subscribe(data => {
+                      console.log( 'les donnes de retour de la requete : ' + data);
+                  }, error => {
+                    console.log('les erreurs : ' + error);
+                  });
   }
 
+  // Update Consent
+  updateConsent(consent): Observable<String> {
+    const obj = { 'TCRMService': {
+      '@schemaLocation': 'http://www.ibm.com/mdm/schema MDMDomains.xsd',
+      'RequestControl': {
+        'requestID': '10015',
+        'DWLControl': {
+          'requesterName': 'cusadmin',
+          'requesterLanguage': '100',
+          'requesterTimeZone': 'UTC'
+        }
+      },
+      'TCRMTx': {
+        'TCRMTxType': 'updateConsent',
+        'TCRMTxObject': 'ConsentBObj',
+        'TCRMObject': {
+          'ConsentBObj': {
+            'ConsentId': '',
+            'AgreeInd': '',
+            'EndDate': '',
+            'EndReasonType': '',
+            'ConsentLastUpdateDate': ''
+          }
+        }
+      }
+    }
+  };
+
+  // "ConsentId": "943255775711897947",
+  // "AgreeInd": "0",
+  // "EndDate": "2019-09-24 08:13:52.0",
+  // "EndReasonType": "13",
+  // "ConsentLastUpdateDate": "2019-05-13 14:18:38.978"
+
+  obj.TCRMService.TCRMTx.TCRMObject.ConsentBObj.ConsentId = consent.ConsentId;
+  obj.TCRMService.TCRMTx.TCRMObject.ConsentBObj.AgreeInd = consent.AgreeInd;
+  const now = new Date();
+  obj.TCRMService.TCRMTx.TCRMObject.ConsentBObj.EndDate = now.toISOString().replace('T',' ').replace('Z','');
+  obj.TCRMService.TCRMTx.TCRMObject.ConsentBObj.EndReasonType = '13';
+  obj.TCRMService.TCRMTx.TCRMObject.ConsentBObj.ConsentLastUpdateDate = consent.ConsentLastUpdateDate;
+
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': 'Basic bWRtYWRtaW46bWRtYWRtaW4=',
+      'Access-Control-Allow-Origin': '*'
+    })
+  };
+    return this.httpClient.put('/api/com.ibm.mdm.server.ws.restful/resources/MDMWSRESTful', obj, httpOptions)
+      .pipe( map((res: any) => {
+        console.log(res);
+        const consentRes = res.TCRMService.TxResponse.ResponseObject.ConsentBObj.ConsentId;
+        return consentRes;
+      }),
+    );
+  }
+
+                // .subscribe(data => {
+                //     console.log( 'les donnes de retour de la requete : ' + data);
+                // }, error => {
+                //   console.log('les erreurs : ' + error);
+                // });
 
 
   // Recevoir les consentements
@@ -109,11 +172,47 @@ export class ConsentService {
 
   }
 
-  activedConsent() {
-      console.log('Consentement activé');
-  }
+// Recevoir la description du consentement
+  getProcPurpDescription(procPurpId: String): Observable <String> {
 
-  desactivedConsent() {
-      console.log('consentement désactivé');
+          const obj = {
+            'TCRMService': {
+              '@schemaLocation': 'http://www.ibm.com/mdm/schema MDMDomains.xsd',
+              'RequestControl': {
+                  'requestID': 1000,
+                  'DWLControl': {
+                      'requesterName': 'cusadmin',
+                      'requesterLocale': '100',
+                      'requesterTimeZone': 'UTC'
+                  }
+              },
+              'TCRMInquiry': {
+                  'InquiryType': 'getProcessingPurpose',
+                  'InquiryParam': {
+                      'tcrmParam': [{
+                          '@name': 'ProcPurpId',
+                          '$': procPurpId
+                      }, {
+                          '@name': 'InquiryLevel',
+                          '$': '0'
+                      }]
+                  }
+              }
+          }
+      };
+
+
+        const httpOptions = {
+          headers: new HttpHeaders({
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Authorization': 'Basic bWRtYWRtaW46bWRtYWRtaW4='
+          })
+        };
+        return this.httpClient.put('/api/com.ibm.mdm.server.ws.restful/resources/MDMWSRESTful', obj, httpOptions)
+                              .pipe( map((res: any) => { console.log(res);
+                              return res.TCRMService.TxResponse.ResponseObject.ProcessingPurposeBObj.ProcPurpDescription;
+                              })
+    );
   }
 }

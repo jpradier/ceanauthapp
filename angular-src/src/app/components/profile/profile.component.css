@@ -1,3 +1,23 @@
-.page-header, h4, h2 {
-  background-color: rgb(201, 198, 198);
+.content {
+  background-color: black;
 }
+.style {
+  font-size: 30px;
+}
+
+.main {
+  font-size: 14px;
+  line-height: 1.8;
+  color: #222;
+  font-weight: 400;
+  font-family: 'Montserrat';
+  background-image: url("https://cdn.pixabay.com/photo/2013/07/13/12/08/background-159244_960_720.png");
+  height: 100%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  -moz-background-size: cover;
+  -webkit-background-size: cover;
+  -o-background-size: cover;
+  -ms-background-size: cover;
+  background-position: center center;
+  padding: 115px 0; }

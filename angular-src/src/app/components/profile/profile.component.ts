@@ -17,9 +17,7 @@ import { Consent } from 'src/app/models/consent.model';
 export class ProfileComponent implements OnInit {
    user: User = new User();
    consents: Consent[];
-   agree: Boolean = false;
-
-
+   response: any;
 
   constructor(
     private authService: AuthService,
@@ -33,91 +31,44 @@ export class ProfileComponent implements OnInit {
 
     this.authService.getProfile().subscribe(data => {
       this.user = data.user;
-      this.consentService.getUserConsents(this.user.email).subscribe((res: Consent[]) => {
-        this.consents = res;
-       });
+      this.showConsentAndDetails();
     });
   }
 
-  switchConsent() {
-  if (this.agree === true) {
-    this.consentService.SaveGeneralConsent(this.user.email, this.agree);
+  showConsentAndDetails() {
     this.consentService.getUserConsents(this.user.email).subscribe((res: Consent[]) => {
+      console.log('This is supposed of be an Array ' + JSON.stringify(res));
       this.consents = res;
-     });
-    this.flashMessage.show('Consentement activé', {
-      cssClass: 'alert-success',
-      timeout: 3000
+      this.consents.forEach(consent => {
+        this.consentService.getProcPurpDescription(consent.ProcPurpId).subscribe((res: String) => {
+          consent.ProcPurpDescription = res;
+        });
       });
-  } else {
+     });
+  }
+
+
+  switchConsent(consent: any) {
+    if (consent.AgreeInd === '0') {
+      consent.AgreeInd = '1';
+    } else {
+      consent.AgreeInd = '0';
+    }
+    this.consentService.updateConsent(consent).subscribe((res: String) => {
+      console.log("Just updated consent with ConsentId " + res);
+      if (consent.AgreeInd === '1') {
+        this.flashMessage.show('Consentement activé', {
+        cssClass: 'alert-success',
+        timeout: 3000
+        });
+      } else {
         this.flashMessage.show('Consentement désactivé', {
-          cssClass: 'alert-danger',
-          timeout: 3000
+        cssClass: 'alert-danger',
+        timeout: 3000
         });
       }
-
-}
-
-  // switchActivedConsent() {
-  //   this.consentService.activedConsent() ;
-  // }
-
-  // switchDesactivedConsent() {
-  //   this.consentService.desactivedConsent();
-  // }
-
-  //     onRecievConsent(email: string) {
-  //       const obj = {'TCRMService': {
-  //         '@schemaLocation': 'http://www.ibm.com/mdm/schema MDMDomains.xsd',
-  //         'RequestControl': {
-  //           'requestID': 1000,
-  //           'DWLControl': {
-  //           'requesterName': 'cusadmin',
-  //           'requesterLocale': '100',
-  //           'requesterTimeZone': 'UTC'
-  //           }
-  //         },
-  //         'TCRMInquiry': {
-  //           'InquiryType': 'getAllConsentByParty',
-  //           'InquiryParam': {
-  //             'tcrmParam': [{
-  //             '@name': 'ConsentOwnerId',
-  //             '$': this.user.email
-  //           },
-  //           {
-  //             '@name': 'InquiryLevel',
-  //             '$': '0'
-  //           },
-  //           {
-  //             '@name': 'Filter',
-  //             '$': ''
-  //           }
-  //         ]
-  //       }
-  //     }
-  //   }
-  // };
-
-  // const httpOptions = {
-  //           headers: new HttpHeaders({
-  //           'Content-Type': 'application/json',
-  //           'Accept': 'application/json',
-  //           'Authorization': 'Basic bWRtYWRtaW46bWRtYWRtaW4=',
-  //          'Access-Control-Allow-Origin': '*'
-  //         })
-  //       };
-
-
-  // this.httpClient
-  //   .put('/api/com.ibm.mdm.server.ws.restful/resources/MDMWSRESTful', obj, httpOptions)
-  //   .subscribe(data => {
-  //       console.log( 'les donnes de retour de la requete : ' + data);
-  //       this.consents[this.i] = data;
-  //   }, error => {
-  //     console.log('les erreurs : ' + error);
-  //   });
-
-  //   }
-
+      this.showConsentAndDetails();
+    });
+  }
 
 }

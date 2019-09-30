@@ -1,69 +1,56 @@
-<div class="container">
-  <div class="row">
-    <div class="col-md-4">
-          <div *ngIf="user">
-            <h2 class="page-header">{{user.name}}</h2>
-            <ul class="list-group">
-              <li class="list-group-item"> {{user.username}}</li>
-              <li class="list-group-item"> {{user.email}}</li>
-            </ul>
-          </div>
+<div class="main">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-2" class="consent" >
+            <div *ngIf="user">
+              <div class="row clearfix well">
+                <div class="col-md-4 column">
+                    <img class="rounded" alt="Cinque Terre" width="100" height="96" src="https://file1.telestar.fr/var/telestar/storage/images/media/images/2016/photos/20160819-will-smith-plus/will-smith/1424762-5-fre-FR/Will-Smith_width1024.jpg" />
+                </div>
+              </div>
+              <!-- <h2 class="page-header">{{user.name}}</h2> -->
+              <ul class="list-group">
+                <li class="list-group-item"> <strong> {{user.username}} </strong></li>
+                <li class="list-group-item"> <strong> {{user.email}} </strong></li>
+              </ul>
+            </div>
+      </div>
+    </div> <br><br>
+
+    <div class="style">
+      <p class="text-center"> <strong>Table des Consentements !</strong> </p>
+
+      <p> <strong> Consentements donnés ! </strong> </p>
     </div>
-  </div>
-
-  <div class="consent">
-    <h2> Table Des Consentements </h2>
-  </div>
-  <h4>Voici l'ensemble des consentements que vous avez donné !</h4>
-  <div class="row">
-    <div class="col-lg-12">
+    <div class="row">
+      <div class="col-lg-12">
         <table class="table table-bordered">
-            <thead>
-              <tr>
-                <th scope="col"> Consent  </th>
-                <th scope="col">Activated/Desactivated</th>
-                <!--<th scope="col" >Desactivated</th>-->
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <!-- *ngFor="let item of collection"  -->
-                <td class="col-lg-6">
-                  <div *ngFor="let consent of consents "> {{consent.ProcPurpId}}
-                      <label> Mes consentements </label>
+          <thead>
+            <tr>
+              <th scope="col"> <strong> Consents </strong>  </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <div class="row justify-content-around" *ngFor="let consent of consents ">
+
+                  <div class="col-3"> <strong>{{consent.ConsentId}}</strong></div>
+                  <div class="col-4"> <strong> {{consent.ProcPurpDescription}}</strong> </div>
+                  <div class="col-2"> <strong>{{ consent.CreateDate | date :'dd/MM/yyyy'}}</strong> </div>
+                  <div class="custom-control custom-switch col-3">
+                      <input (click)="switchConsent(consent)"
+                            type="checkbox" class="custom-control-input" name="{{'AgreeInd-' + consent.ConsentId}}" id="{{'AgreeInd-' + consent.ConsentId}}" checked *ngIf="consent.AgreeInd === '1' ? true : false">
+                      <input (click)="switchConsent(consent)"
+                            type="checkbox" class="custom-control-input" name="{{'AgreeInd-' + consent.ConsentId}}" id="{{'AgreeInd-' + consent.ConsentId}}" *ngIf="consent.AgreeInd === '0' ? true : false">
+                      <label class="custom-control-label" for="{{'AgreeInd-' + consent.ConsentId}}">On/Off {{consent.AgreeInd}} </label>
                   </div>
-               </td>
-                <td class="col-lg-6" >
-                    <div class="custom-control custom-switch">
-                        <input [(ngModel)] ="agree" type="checkbox" class="custom-control-input" id="customSwitches"
-                               [ngModelOptions]="{standalone: true}"
-                               >
-                        <label class="custom-control-label" for="customSwitches"> Activer ou Désactiver le consentement </label>
-                      </div>
-
-                </td>
-
-              </tr>
-            </tbody>
-          </table>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </div>
-
-
-
-
-<!--<label for="agreeind"> <input #agree type="checkbox" name="agreeInd"  [(ngModel)] ="agree.selected" > Activated</label>
-                      <div class="form-check" >
-                        [(ngModel)] ="agree.selected"
-                          <input #agree type="checkbox" name="agreeInd" class="form-check-input" >
-                          <label class="form-check-label" for="agreeind"> Activated/Desactivated </label>
-                      </div>-->
-
-                       <!--<td  class="col-lg-2">
-                      <label for="agreeind1"> <input #agree1 type="checkbox" name="agreeInd1"  [(ngModel)] ="agree1.selected" > Desactivated</label>
-                      <div class="form-check">
-                          <input #agree type="checkbox" name="agreeInd" class="form-check-input" [(ngModel)] ="agree.selected1">
-                          <label class="form-check-label" for="agreeind"> Desactivated </label>
-                      </div>
-                </td> -->
