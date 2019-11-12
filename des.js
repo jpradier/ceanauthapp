@@ -1,4 +1,4 @@
-PUT http:mdmdemowin:9080/com.ibm.mdm.server.ws.restful/resources/MDMWSRESTful
+PUT http: //mdmdemowin:9080/com.ibm.mdm.server.ws.restful/resources/MDMWSRESTful
     Content - Type: application / json
 Accept: application / json
 Authorization: Basic bWRtYWRtaW46bWRtYWRtaW4 =
@@ -15,14 +15,17 @@ Authorization: Basic bWRtYWRtaW46bWRtYWRtaW4 =
                 }
             },
             "TCRMInquiry": {
-                "InquiryType": "getProcessingPurpose",
+                "InquiryType": "getAllConsentByParty",
                 "InquiryParam": {
                     "tcrmParam": [{
-                        "@name": "ProcPurpId",
-                        "$": "728153040827580997"
+                        "@name": "ConsentOwnerId",
+                        "$": "882853040695875849"
                     }, {
                         "@name": "InquiryLevel",
                         "$": "0"
+                    }, {
+                        "@name": "Filter",
+                        "$": ""
                     }]
                 }
             }

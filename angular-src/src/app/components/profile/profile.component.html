@@ -1,56 +1,89 @@
-<div class="main">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-2" class="consent" >
-            <div *ngIf="user">
-              <div class="row clearfix well">
-                <div class="col-md-4 column">
-                    <img class="rounded" alt="Cinque Terre" width="100" height="96" src="https://file1.telestar.fr/var/telestar/storage/images/media/images/2016/photos/20160819-will-smith-plus/will-smith/1424762-5-fre-FR/Will-Smith_width1024.jpg" />
-                </div>
-              </div>
-              <!-- <h2 class="page-header">{{user.name}}</h2> -->
-              <ul class="list-group">
-                <li class="list-group-item"> <strong> {{user.username}} </strong></li>
-                <li class="list-group-item"> <strong> {{user.email}} </strong></li>
-              </ul>
+<div class="container-fluid">
+    <div class="row align-start">
+        <div class="fb-profile ">
+            <img align="left" class="fb-image-lg" src="http://lorempixel.com/850/280/nightlife/5/" alt="Profile image example"/>
+            <img align="left" class="fb-image-profile thumbnail" src="https://file1.telestar.fr/var/telestar/storage/images/media/images/2016/photos/20160819-will-smith-plus/will-smith/1424762-5-fre-FR/Will-Smith_width1024.jpg" alt="Profile image example"/>
+          <div class="fb-profile-text">
+          <div *ngIf="user">
+            <div>
+              <div> <strong> {{user.username}} </strong></div>
+              <div> <strong> {{user.email}} </strong></div>
             </div>
-      </div>
-    </div> <br><br>
-
-    <div class="style">
-      <p class="text-center"> <strong>Table des Consentements !</strong> </p>
-
-      <p> <strong> Consentements donnés ! </strong> </p>
+          </div>
+          </div>
+        </div>
     </div>
-    <div class="row">
-      <div class="col-lg-12">
-        <table class="table table-bordered">
-          <thead>
-            <tr>
-              <th scope="col"> <strong> Consents </strong>  </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>
-                <div class="row justify-content-around" *ngFor="let consent of consents ">
+      <p class="text-center"> <strong>Table des Consentements </strong> </p>
+      <div class="card m-2" *ngFor="let procPurp of procPurposes " style="border: 1px solid black">
+        <div class="card-title m-1"> {{procPurp.ProcPurpValue}} </div>
+          <div class="row m-2" *ngIf="procPurp.currentConsent != undefined">
+              <div class="col-lg" *ngIf="procPurp.currentConsent.EndDate != undefined" ><label class="small" for="startEndDate1">Validity Period: </label>
+                <p id="startEndDate1"> {{ ( procPurp.currentConsent.StartDate | date :'dd/MM/yyyy' ) + ' - ' +  ( procPurp.currentConsent.EndDate | date :'dd/MM/yyyy' )}}</p>
+              </div>
+              <div class="col-lg" *ngIf="procPurp.currentConsent.EndDate == undefined"><label class="small" for="startEndDate1">Validity Period: </label>
+                <p id="startEndDate1"> {{ ( procPurp.currentConsent.StartDate | date :'dd/MM/yyyy' ) + ' - ' + ("No EndDate")}}</p>
+              </div>
+              <div class="col-lg"><label class="small" for="SubmittedVia1">SubmittedVia: </label>
+                <p id="SubmittedVia1"> CEAN Auth </p>
+              </div>
+              <div class="col-lg"><label class="small" for="Soumis">Soumis dans: </label>
+                <p id="Soumis"> {{procPurp.currentConsent.LanguageAgreedInValue}}</p>
+              </div>
+              <div class="col-lg"><label class="small" for="Accept">Accordé le: </label>
+                <p id="Accept"> {{procPurp.currentConsent.StartDate | date :'dd/MM/yyyy'}}</p>
+              </div>
+              <div class="col-lg"><label class="small" for="EndReason1">EndReason:</label>
+                <p id="EndReason1">{{ procPurp.currentConsent.EndReasonValue }}</p>
+              </div>
+              <div class="col-lg"><label class="small" for="Maj"> Dernière MAJ le: </label>
+                <p id="Maj"> {{procPurp.currentConsent.ConsentLastUpdateDate | date :'dd/MM/yyyy'}} </p>
+              </div>
+              <div class="col-lg custom-control custom-switch"> <span class="small"> Activate consent: </span>
+                <input (click)="withdrawConsent(procPurp.currentConsent)"
+                  type="checkbox" class="custom-control-input" name="{{'AgreeInd-' + procPurp.currentConsent.ProcPurpId}}"
+                  id="{{'AgreeInd-' + procPurp.currentConsent.ProcPurpId}}" checked
+                  *ngIf="(procPurp.currentConsent.AgreeInd === '1') ? true : false">
 
-                  <div class="col-3"> <strong>{{consent.ConsentId}}</strong></div>
-                  <div class="col-4"> <strong> {{consent.ProcPurpDescription}}</strong> </div>
-                  <div class="col-2"> <strong>{{ consent.CreateDate | date :'dd/MM/yyyy'}}</strong> </div>
-                  <div class="custom-control custom-switch col-3">
-                      <input (click)="switchConsent(consent)"
-                            type="checkbox" class="custom-control-input" name="{{'AgreeInd-' + consent.ConsentId}}" id="{{'AgreeInd-' + consent.ConsentId}}" checked *ngIf="consent.AgreeInd === '1' ? true : false">
-                      <input (click)="switchConsent(consent)"
-                            type="checkbox" class="custom-control-input" name="{{'AgreeInd-' + consent.ConsentId}}" id="{{'AgreeInd-' + consent.ConsentId}}" *ngIf="consent.AgreeInd === '0' ? true : false">
-                      <label class="custom-control-label" for="{{'AgreeInd-' + consent.ConsentId}}">On/Off {{consent.AgreeInd}} </label>
-                  </div>
+                <input (click)="addConsent(procPurp.ProcPurpId)"
+                  type="checkbox" class="custom-control-input" name="{{'AgreeInd-' + procPurp.currentConsent.ProcPurpId}}"
+                  id="{{'AgreeInd-' + procPurp.currentConsent.ProcPurpId}}"
+                  *ngIf="(procPurp.currentConsent.AgreeInd === '0') ? true : false">
+                <label class="custom-control-label" for="{{'AgreeInd-' + procPurp.currentConsent.ProcPurpId}}"> On/Off </label>
+              </div>
+              <div class="col-lg-1">
+                  <a class="btn btn-primary" data-toggle="collapse" href="#{{'collapse'+procPurp.ProcPurpId}}" role="button" >
+                      History</a>
+              </div>
+            </div><!-- End of row-->
+            <div class="row m-2" *ngIf="procPurp.currentConsent === undefined">
+              <div class="col-lg-9"> No consent </div>
+              <div class="col-lg-2 custom-control custom-switch"> <label class="small" for="toggle"> Activate consent: </label>
+                <input (click)="addConsent(procPurp.ProcPurpId)"
+                  type="checkbox" class="custom-control-input" name="{{'AgreeInd-' + procPurp.ProcPurpId}}" id="{{'AgreeInd-' + procPurp.ProcPurpId}}">
+                <label class="custom-control-label" for="{{'AgreeInd-' + procPurp.ProcPurpId}}">On/Off </label>
+              </div>
+              <div class="col-lg-1">
+                  <a class="btn btn-primary" data-toggle="collapse" href="#{{'collapse'+procPurp.ProcPurpId}}" role="button" >
+                    History</a>
+              </div>
+            </div><!-- End of row-->
+            <div class="card m-1" style="border: 1px solid black">
+                <div class="collapse" id="{{'collapse'+procPurp.ProcPurpId}}">
+                    <div class="row" *ngFor="let historicalConsent of procPurp.historicalConsents">
+                      <div class="col-sm m-2"><label class="small" for="startEndDate-hist1">Validity Period</label>
+                        <p id="startEndDate-hist1">{{ ( historicalConsent.StartDate | date :'dd/MM/yyyy' ) + ' - ' +  ( historicalConsent.EndDate | date :'dd/MM/yyyy' )}}</p>
+                      </div>
+                      <div class="col-sm m-2">
+                        <label class="small" for="SubmittedVia-hist1">SubmittedVia</label>
+                        <p id="SubmittedVia-hist1">iPhone</p>
+                      </div>
+                      <div class="col-sm m-2">
+                        <label class="small" for="EndReason-hist1">End Reason</label>
+                        <p id="EndReason-hist1">{{ historicalConsent.EndReasonValue }}</p>
+                      </div>
+                    </div>
                 </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
+            </div>
+        </div><!-- End of card-->
 </div>
+

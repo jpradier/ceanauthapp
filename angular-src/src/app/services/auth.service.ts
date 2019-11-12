@@ -10,23 +10,27 @@ export class AuthService {
   authToken: any;
   user: any;
 
+  // tslint:disable-next-line: deprecation
   constructor(private http: Http) {
   }
 
   registerUser(user) {
-    let headers = new Headers();
+    // tslint:disable-next-line: deprecation
+    const headers = new Headers();
     headers.append('Content-Type', 'application/json');
     return this.http.post('http://localhost:3000/users/register', user, {headers: headers}).pipe(map(res => res.json()));
   }
 
   authenticateUser(user) {
-    let headers = new Headers();
+    // tslint:disable-next-line: deprecation
+    const headers = new Headers();
     headers.append('Content-Type', 'application/json');
     return this.http.post('http://localhost:3000/users/authenticate', user, {headers: headers}).pipe(map(res => res.json()));
   }
 
   getProfile() {
-    let headers = new Headers();
+    // tslint:disable-next-line: deprecation
+    const headers = new Headers();
     this.loadToken();
     headers.append('Authorization', this.authToken);
     headers.append('Content-Type', 'application/json');
@@ -44,7 +48,7 @@ export class AuthService {
   loggedIn() {
     const helper = new JwtHelperService();
     const token = localStorage.getItem('id_token');
-    console.log('Helper returned ' + helper.isTokenExpired(token));
+ //   console.log('Helper returned ' + helper.isTokenExpired(token));
     return !helper.isTokenExpired(token);
   }
 

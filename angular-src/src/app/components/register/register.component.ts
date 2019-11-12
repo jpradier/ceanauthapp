@@ -20,12 +20,9 @@ import {User} from '../../models/user.model';
 export class RegisterComponent implements OnInit {
 
   user: User = new User();
-  // name: string;
-  // email: string;
-  // username: string;
-  // password: string;
   toggle: Boolean = false;
   agree: Boolean = false;
+
 
 
 
@@ -70,21 +67,22 @@ export class RegisterComponent implements OnInit {
     this.authService.registerUser(this.user).subscribe(data => {
       if (data.success) {
         if (this.agree === true) {
-              this.consentService.addGeneralConsent(this.user.email, this.agree);
-            }
-        this.flashMessage.show('You are now registered and can log in', {
-          cssClass: 'alert-success',
-          timeout: 3000
-        });
-        this.router.navigate(['/login']);
-      } else {
-        this.flashMessage.show('Something went wrong', {
-          cssClass: 'alert-danger',
-          timeout: 3000
-        });
-        this.router.navigate(['/register']);
-
-      }
-    });
+          this.consentService.addGeneralConsent(this.user.email, this.agree).subscribe((res: String) => {
+            console.log('consent added' + res);
+            this.flashMessage.show('You are now registered and can log in', {
+            cssClass: 'alert-success',
+            timeout: 3000
+            });
+            this.router.navigate(['/login']);
+          });
+            } else {
+            this.flashMessage.show('Something went wrong', {
+              cssClass: 'alert-danger',
+              timeout: 3000
+          });
+          this.router.navigate(['/register']);
+          }
+        }
+      });
   }
 }
