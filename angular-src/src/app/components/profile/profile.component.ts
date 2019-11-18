@@ -21,7 +21,6 @@ export class ProfileComponent implements OnInit {
    response: any;
    agree: Boolean = false;
    // id = Math.floor(Math.random() * 6) + 1;
-
   constructor(
     private authService: AuthService,
     private router: Router,
@@ -34,6 +33,7 @@ export class ProfileComponent implements OnInit {
 
     this.authService.getProfile().subscribe(data => {
       this.user = data.user;
+      // this.user.score = Math.floor(Math.random() * 100);
       this.getAllProcessingPurposes();
     });
   }

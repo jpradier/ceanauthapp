@@ -34,11 +34,18 @@ if (cloudant) {
       mydb.createIndex(indexDef).then((result) => {
         console.log(result);
       });
+      const indexScore = {
+        index: { fields: ['score'] },
+        name: 'scoreindex',
+        type: 'json'
+      };
+      mydb.createIndex(indexScore).then((result) => {
+        console.log(result);
+      });
     } else {
       console.log("Existing database: " + dbName);
     }
   });
-
   mydb = cloudant.use(dbName);
 }
 module.exports = mydb;

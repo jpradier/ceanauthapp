@@ -3,5 +3,7 @@ export class User {
   username: string;
   email: string;
   password: string;
+  score: number;
+  img: string;
 
 }

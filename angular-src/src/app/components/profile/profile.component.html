@@ -1,18 +1,19 @@
 <div class="container-fluid">
     <div class="row align-start">
         <div class="fb-profile ">
-            <img align="left" class="fb-image-lg" src="http://lorempixel.com/850/280/nightlife/5/" alt="Profile image example"/>
-            <img align="left" class="fb-image-profile thumbnail" src="https://file1.telestar.fr/var/telestar/storage/images/media/images/2016/photos/20160819-will-smith-plus/will-smith/1424762-5-fre-FR/Will-Smith_width1024.jpg" alt="Profile image example"/>
+            <img align="left" class="fb-image-lg" src="https://picsum.photos/seed/picsum/800/200" alt="Profile image example"/>
+            <img align="left" class="fb-image-profile thumbnail" src="https://i.pravatar.cc/300" alt="Profile image example"/>
           <div class="fb-profile-text">
           <div *ngIf="user">
             <div>
               <div> <strong> {{user.username}} </strong></div>
               <div> <strong> {{user.email}} </strong></div>
+              <div> <strong> {{user.score}} </strong></div>
             </div>
           </div>
           </div>
         </div>
-    </div>
+    </div> <br>
       <p class="text-center"> <strong>Table des Consentements </strong> </p>
       <div class="card m-2" *ngFor="let procPurp of procPurposes " style="border: 1px solid black">
         <div class="card-title m-1"> {{procPurp.ProcPurpValue}} </div>

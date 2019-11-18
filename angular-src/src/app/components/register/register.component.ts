@@ -27,6 +27,7 @@ export class RegisterComponent implements OnInit {
 
 
 
+
   constructor(
     private validateService: ValidateService,
     private authService: AuthService,
@@ -62,6 +63,12 @@ export class RegisterComponent implements OnInit {
       });
       return false;
     }
+
+    // Assign random score
+    this.user.score = Math.floor(Math.random() * 100);
+
+    // Assign random portrait img
+    this.user.img = 'https://i.pravatar.cc/300?u=' + this.user.email;
 
     // Register User
     this.authService.registerUser(this.user).subscribe(data => {
