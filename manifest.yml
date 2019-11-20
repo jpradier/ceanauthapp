@@ -7,5 +7,6 @@ applications:
   random-route: true
   command: npm start
   memory: 256MB
+  buildpack: nodejs_buildpack
   services:
   - cloudant-for-ceanauthapp
