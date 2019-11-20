@@ -36,11 +36,7 @@ const appRoutes: Routes = [
     RegisterComponent,
     HomeComponent,
     DashboardComponent,
-<<<<<<< HEAD
     ProfileComponent,
-=======
-    ProfileComponent
->>>>>>> c1edb09e0069f8b9d4c1d70eaf8015dcceec7018
   ],
   imports: [
     HttpModule,
