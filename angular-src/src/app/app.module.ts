@@ -18,7 +18,6 @@ import { ValidateService} from './services/validate.service';
 import { AuthService} from './services/auth.service';
 import { FlashMessagesModule} from 'angular2-flash-messages';
 import { AuthGuard } from './guards/auth.guard';
-import { ConsentGeneralComponent } from './components/consent-general/consent-general.component';
 import {ConsentService} from './services/consent.service';
 
 const appRoutes: Routes = [
@@ -37,8 +36,7 @@ const appRoutes: Routes = [
     RegisterComponent,
     HomeComponent,
     DashboardComponent,
-    ProfileComponent,
-    ConsentGeneralComponent
+    ProfileComponent
   ],
   imports: [
     HttpModule,
