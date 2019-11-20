@@ -12,7 +12,7 @@ import { subscribeOn } from 'rxjs/operators';
 export class NavbarComponent implements OnInit {
 
   constructor(
-    private authService: AuthService,
+    public authService: AuthService,
     private router: Router,
     private flashMessage: FlashMessagesService
   ) { }
