@@ -21,3 +21,11 @@ Note if you want to run it locally against your IBM Cloud Cloudant intance, prov
     ]
   }
 }
+
+
+Make sure your MDM Server is up and running, and is accessible using the hostname mdmdemowin from your local machine (that will run chrome). Double-check that you can log into MDM using (mdmadmin/mdmadmin) at https://mdmdemowin:9443/mdmconsent/
+To avoid CORS Blocking, make sure you are lauching chrome using the following command lines
+
+alias chrome="/Applications/Google\\ \\Chrome.app/Contents/MacOS/Google\\ \\Chrome"
+chrome --user-data-dir="/tmp/chrome_dev_test" --disable-web-security 
+[Note you can also install a plugin such as "Allow CORS" to permanently enable CORS from your Chrome browser]

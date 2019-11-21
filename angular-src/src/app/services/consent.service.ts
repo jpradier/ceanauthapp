@@ -85,7 +85,7 @@ export class ConsentService {
     };
 console.log('inside addconsent1');
     return this.httpClient
-      .put('/api/com.ibm.mdm.server.ws.restful/resources/MDMWSRESTful', obj, httpOptions)
+      .put('http://mdmdemowin:9080/com.ibm.mdm.server.ws.restful/resources/MDMWSRESTful', obj, httpOptions)
       .pipe( map((res: any) => {
         console.log(res);
         const consentRes = res.TCRMService.TxResponse.ResponseObject.ConsentBObj.ConsentId;
@@ -139,7 +139,7 @@ console.log('inside addconsent1');
       'Access-Control-Allow-Origin': '*'
     })
   };
-    return this.httpClient.put('/api/com.ibm.mdm.server.ws.restful/resources/MDMWSRESTful', obj, httpOptions)
+    return this.httpClient.put('http://mdmdemowin:9080/com.ibm.mdm.server.ws.restful/resources/MDMWSRESTful', obj, httpOptions)
       .pipe( map((res: any) => {
         console.log(res);
         const consentRes = res.TCRMService.TxResponse.ResponseObject.ConsentBObj.ConsentId;
@@ -193,7 +193,7 @@ console.log('inside addconsent1');
       })
     };
 
-    return this.httpClient.put('/api/com.ibm.mdm.server.ws.restful/resources/MDMWSRESTful', obj, httpOptions)
+    return this.httpClient.put('http://mdmdemowin:9080/com.ibm.mdm.server.ws.restful/resources/MDMWSRESTful', obj, httpOptions)
                           .pipe( map((res: any) => { console.log(res);
                             let consents = res.TCRMService.TxResponse.ResponseObject.ConsentBObj;
                             if (!Array.isArray(consents)) { consents = Array.of(consents);  }
@@ -232,7 +232,7 @@ console.log('inside addconsent1');
         'Authorization': 'Basic bWRtYWRtaW46bWRtYWRtaW4='
       })
     };
-    return this.httpClient.put('/api/com.ibm.mdm.server.ws.restful/resources/MDMWSRESTful', obj, httpOptions)
+    return this.httpClient.put('http://mdmdemowin:9080/com.ibm.mdm.server.ws.restful/resources/MDMWSRESTful', obj, httpOptions)
                           .pipe( map((res: any) => { console.log(res);
                           const unfilteredProcPurposes = res.TCRMService.TxResponse.ResponseObject.ProcessingPurposeBObj;
                           return unfilteredProcPurposes.filter( procPurp => procPurp.ProcPurpParentType === '1000510');
@@ -277,7 +277,7 @@ console.log('inside addconsent1');
             'Authorization': 'Basic bWRtYWRtaW46bWRtYWRtaW4='
           })
         };
-        return this.httpClient.put('/api/com.ibm.mdm.server.ws.restful/resources/MDMWSRESTful', obj, httpOptions)
+        return this.httpClient.put('http://mdmdemowin:9080/com.ibm.mdm.server.ws.restful/resources/MDMWSRESTful', obj, httpOptions)
                               .pipe( map((res: any) => { console.log(res);
                               return res.TCRMService.TxResponse.ResponseObject.ProcessingPurposeBObj.ProcPurpDescription;
                               })
